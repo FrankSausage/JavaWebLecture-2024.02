@@ -12,7 +12,7 @@ import java.io.PrintWriter;
  * Servlet implementation class Ex01_FirstServlet
  */
 
-@WebServlet("/hello")
+@WebServlet({"/hello", "/ch05/hello"})
 public class Ex01_FirstServlet extends HttpServlet {
 	// Get 방식의 요청이 왔을 때 처리해주는 코드
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -33,7 +33,7 @@ public class Ex01_FirstServlet extends HttpServlet {
 
 	// Post 요청이 왔을 때 처리해주는 코드
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
 		doGet(request, response);
 	}
 
