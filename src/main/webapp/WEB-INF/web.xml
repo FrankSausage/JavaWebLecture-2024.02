@@ -79,4 +79,54 @@
     <servlet-name>Ex05_LoginMember</servlet-name>
     <url-pattern>/Ex05_LoginMember</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Ex01_Search</display-name>
+    <servlet-name>Ex01_Search</servlet-name>
+    <servlet-class>ch07_dao.Ex01_Search</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Ex01_Search</servlet-name>
+    <url-pattern>/Ex01_Search</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Ex02_List</display-name>
+    <servlet-name>Ex02_List</servlet-name>
+    <servlet-class>ch07_dao.Ex02_List</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Ex02_List</servlet-name>
+    <url-pattern>/Ex02_List</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Ex03_Insert</display-name>
+    <servlet-name>Ex03_Insert</servlet-name>
+    <servlet-class>ch07_dao.Ex03_Insert</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Ex03_Insert</servlet-name>
+    <url-pattern>/Ex03_Insert</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Ex04_Delete</display-name>
+    <servlet-name>Ex04_Delete</servlet-name>
+    <servlet-class>ch07_dao.Ex04_Delete</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Ex04_Delete</servlet-name>
+    <url-pattern>/Ex04_Delete</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Ex05_Update</display-name>
+    <servlet-name>Ex05_Update</servlet-name>
+    <servlet-class>ch07_dao.Ex05_Update</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Ex05_Update</servlet-name>
+    <url-pattern>/Ex05_Update</url-pattern>
+  </servlet-mapping>
 </web-app>
