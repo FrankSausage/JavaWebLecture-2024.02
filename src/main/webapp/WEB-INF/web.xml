@@ -129,4 +129,34 @@
     <servlet-name>Ex05_Update</servlet-name>
     <url-pattern>/Ex05_Update</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>KcityController</display-name>
+    <servlet-name>KcityController</servlet-name>
+    <servlet-class>ch07_dao.kcity.KcityController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>KcityController</servlet-name>
+    <url-pattern>/KcityController</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>kCityController</display-name>
+    <servlet-name>kCityController</servlet-name>
+    <servlet-class>ch07_dao.kcity.kCityController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>kCityController</servlet-name>
+    <url-pattern>/kCityController</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>kPopController</display-name>
+    <servlet-name>kPopController</servlet-name>
+    <servlet-class>ch07_dao.kpop.kPopController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>kPopController</servlet-name>
+    <url-pattern>/kPopController</url-pattern>
+  </servlet-mapping>
 </web-app>
