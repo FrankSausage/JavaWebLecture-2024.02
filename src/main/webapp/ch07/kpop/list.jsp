@@ -20,14 +20,14 @@
 			<th>히트송</th><th>히트송 가사</th><th>데이터 삭제</th></tr>
 		<c:forEach var="kpop" items="${list}"> 	
 			<tr>
-				<td><a href="#">${kpop.aid}</td>
-				<td>${kpop.name}</td>
+				<td>${kpop.aid}</td>
+				<td><a href="/jw/ch07/kpop/updateArtist?aid=${kpop.aid}">${kpop.name}</a></td>
 				<td>${kpop.debut}</td>
-				<td><a href="#">${kpop.title}</td>	
+				<td><a href="/jw/ch07/kpop/updateSong?sid=${kpop.sid}">${kpop.title}</a></td>	
 				<td>${kpop.lyrics}</td>	
 				<td>
-					<a href="/jw/ch07/kpop/deleteSong?sid=${kpop.aid}">아티스트</a>
-					<a href="/jw/ch07/kpop/deleteArtist?aid=${kpop.sid}">노래</a>
+					<a href="/jw/ch07/kpop/deleteArtist?aid=${kpop.aid}">아티스트</a>
+					<a href="/jw/ch07/kpop/deleteSong?sid=${kpop.sid}">노래</a>
 				</td>
 			</tr>
 		</c:forEach>

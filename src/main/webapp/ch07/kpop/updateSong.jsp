@@ -4,23 +4,16 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Update City</title>
+	<title>Update Song</title>
 </head>
 <body style="margin: 50px">
-	<h1>도시 수정</h1>
+	<h1>노래 수정</h1>
 	<hr>
-	<form action="/jw/ch07/kcity/update" method="post">
-		<input type="hidden" name="id" value="${city.id}"><br><br>
-		<input type="text" name="id" value="${city.id}" disabled><br><br>
-		<input type="text" name="name" value="${city.name}"><br><br>
-		<input type="text" name="countryCode" value="${city.countryCode}"><br><br>
-		<!-- <input type="text" name="district" value="${city.district}"><br><br> -->
-		<select>
-			<c:forEach var="dist" items="${district}">
-				<option value="${dist}"${dist eq city.district ? "selected" : ""}>${dist}</option>
-			</c:forEach>
-		</select><br><br>
-		<input type="text" name="population" value="${city.population}"><br><br>
+	<form action="/jw/ch07/kpop/updateSong" method="post">
+		<input type="hidden" name="sid" value="${song.sid}"><br><br>
+		<input type="text" value="${song.sid}" disabled><br><br>
+		<input type="text" name="title" value="${song.title}"><br><br>
+		<input type="text" name="lyrics" value="${song.lyrics}"><br><br>
 		<input type="submit" value="확인">
 	</form>
 </body>

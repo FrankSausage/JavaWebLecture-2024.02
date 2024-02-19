@@ -1,0 +1,14 @@
+User Routing Table,,,,,
+,,,,,
+"path
+(/jw/ch09)",method,input parameter,viewer,output parameter,description
+/user/list,GET,page,list viewer,List<User> uList,list.jsp
+/user/register,GET,,register viewer,,register.jsp
+,POST,"uid, pwd, pwd2, uname, email",/user/list?page=1,"User, num, offset",session의 currentUserPage
+/user/login,GET,,login viewer,,login.jsp
+,POST,"uid, pwd",/user/list?page=1,,"sessUid, sessUname 등록"
+/user/logout,GET,,/user/list?page=1,,
+/user/update,GET,uid,update viewer,User user,update.jsp
+,POST,"uid, pwd, pwd2, uname, email",/user/list?page=1,,"pwd, pwd2 != null || pwd == pwd2
+ : 패스워드 변경"
+/user/delete,GET,uid,/user/list?page=1,,

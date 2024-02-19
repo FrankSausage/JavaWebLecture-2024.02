@@ -66,26 +66,35 @@ public class kPopController extends HttpServlet {
 			break;
 		case "updateArtist":
 			if(method.equals("GET")) {
+				aid = Integer.parseInt(request.getParameter("aid"));
+				arti = kDao.getArtist(aid);
 				rd = request.getRequestDispatcher("/ch07/kpop/updateArtist.jsp");
+				request.setAttribute("arti", arti);
 				rd.forward(request, response);
 			} else {
 				aid = Integer.parseInt(request.getParameter("aid"));
 				name = request.getParameter("name");
 				debut = request.getParameter("debut");
-				arti = new Artist(name, LocalDate.parse(debut), aid);
-				kDao.insertArtist(arti);
-				
+				sid = Integer.parseInt(request.getParameter("sid"));
+				arti = new Artist(aid, name, LocalDate.parse(debut), sid);
+				kDao.updateArtist(arti);
 				
 				response.sendRedirect("/jw/ch07/kpop/list");
 			}
 			break;
 		case "updateSong":
 			if(method.equals("GET")) {
+				sid = Integer.parseInt(request.getParameter("sid"));
+				song = kDao.getSong(sid);
 				rd = request.getRequestDispatcher("/ch07/kpop/updateSong.jsp");
+				request.setAttribute("song", song);
 				rd.forward(request, response);
 			} else {
-				
-				
+				sid = Integer.parseInt(request.getParameter("sid"));
+				title = request.getParameter("title");
+				lyrics = request.getParameter("lyrics");
+				song = new Song(sid, title, lyrics);
+				kDao.updateSong(song);
 				response.sendRedirect("/jw/ch07/kpop/list");
 			}
 			break;
