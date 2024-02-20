@@ -2,16 +2,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>User Management</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+	<%@ include file="../../common/_head.jspf" %>
 	<style>
-		* { font-family: 'Noto Sans KR', sans-serif; }
-		a { text-decoration: none; }
-    td { text-align: center; }
+    	td { text-align: center; }
 	</style>	
 </head>
 <body class="bg-light">
@@ -71,5 +64,7 @@
       <div class="col-4"></div>
     </div>
   </div>
+  
+  <%@ include file="../../common/_bottom.jspf" %>
 </body>
 </html>
