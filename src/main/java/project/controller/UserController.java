@@ -13,6 +13,7 @@ import project.service.UserServiceImpl;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.mindrot.jbcrypt.BCrypt;
@@ -37,8 +38,19 @@ public class UserController extends HttpServlet {
 		case "list" :
 			String page_ = request.getParameter("page");
 			int page = (page_ == null || page_.isEmpty()) ? 1 : Integer.parseInt(page_);
+			session.setAttribute("currentUserPage", page);
 			List<User> uList = uSvc.getUserList(page);
 			request.setAttribute("uList", uList);
+			
+			// for pagination
+			int totalUsers = uSvc.getUserCount();
+			int totalPages = (int) Math.ceil(totalUsers * 1.0 / uSvc.COUNT_PER_PAGE);
+			List<String> pageList = new ArrayList<String>();
+			for (int i = 1; i <= totalPages; i++) {
+				pageList.add(String.valueOf(i));
+			}
+			request.setAttribute("pageList",pageList);
+
 			rd = request.getRequestDispatcher("/WEB-INF/view/user/list.jsp");
 			rd.forward(request, response);
 			break;
@@ -92,7 +104,7 @@ public class UserController extends HttpServlet {
 					session.setAttribute("sessUid", uid);
 					session.setAttribute("sessUname", user.getUname());
 					msg = user.getUname() + " 님 환영합니다.";
-					url = "/jw/bbs/user/list?page=1";
+					url = "/jw/bbs/board/list?page=1";
 				}
 				rd = request.getRequestDispatcher("/WEB-INF/view/common/alertMsg.jsp");
 				request.setAttribute("msg", msg);
@@ -103,7 +115,7 @@ public class UserController extends HttpServlet {
 			
 		case "logout" :
 			session.invalidate();
-			response.sendRedirect("/jw/bbs/user/list?page=1");
+			response.sendRedirect("/jw/bbs/board/list?page=1");
 			break;
 			
 		case "update" :

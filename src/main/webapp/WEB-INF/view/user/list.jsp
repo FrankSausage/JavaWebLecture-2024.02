@@ -54,13 +54,21 @@
 										</c:if>
 										<c:if test="${(user.uid ne sessUid) and (sessUid ne 'admin')}">
 											<a class="ms-2 disabled-link" href="#"><i class="fa-solid fa-user-minus"></i></a>
-											
-											
 										</c:if>
 									</td>
 								</tr>
 								</c:forEach>
 							</table>
+							<%-- pagination --%>
+							<ul class="pagination justify-content-center">
+							  	<li class="page-item"><a class="page-link" href="#"><i class="fa-solid fa-less-than"></i></a></li>
+							  <c:forEach var="page" items="${pageList}">
+							  	<li class="page-item ${currentUserPage eq page ? 'active' : ''}">
+							  		<a class="page-link" href="/jw/bbs/user/list?page=${page}">${page}</a>
+							  	</li>
+							  </c:forEach>
+							  	<li class="page-item"><a class="page-link" href="#"><i class="fa-solid fa-greater-than"></i></a></li>
+							</ul>
 						</div>
 						<div class="col-1"></div>
 					</div>

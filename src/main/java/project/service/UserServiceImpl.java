@@ -22,6 +22,11 @@ public class UserServiceImpl implements UserService {
         List<User> uList = userDao.getUserList(COUNT_PER_PAGE, offset);
         return uList;
     }
+    
+    @Override
+    public int getUserCount() {
+    	return userDao.getUserCount();
+    }
 
     @Override
     public void registerUser(User user) {   // user 는 아직 암호화된 패스워드가 없다고 가정
