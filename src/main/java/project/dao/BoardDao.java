@@ -80,6 +80,7 @@ public class BoardDao {
                 board = new Board();
                 board.setBid(rs.getInt(1));
                 board.setTitle(rs.getString(2));
+                board.setUid(rs.getString(4));
                 board.setModTime(LocalDateTime.parse(rs.getString(5).replace(" ", "T")));
                 board.setViewCount(rs.getInt(7));
                 board.setReplyCount(rs.getInt(8));
@@ -95,18 +96,22 @@ public class BoardDao {
         return bList;
     }
     
-    public int getBoardCount() {
+    public int getBoardCount(String field, String query) {
     	Connection conn = getConnection();
-    	String sql = "select count(bid) from board where isDeleted=0";
+    	query = "%" + query + "%";
+    	String sql = "select count(bid) from board "
+    			+ " join users on board.uid=users.uid"
+    			+ " where board.isDeleted=0 and " + field + " LIKE ?";
     	int count = 0;
     	try {
-			Statement stmt = conn.createStatement();
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, query);
 			
-			ResultSet rs = stmt.executeQuery(sql);
+			ResultSet rs = pstmt.executeQuery();
 			while(rs.next()) {
 				count = rs.getInt(1);
 			}
-			rs.close(); stmt.close(); conn.close();
+			rs.close(); pstmt.close(); conn.close();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

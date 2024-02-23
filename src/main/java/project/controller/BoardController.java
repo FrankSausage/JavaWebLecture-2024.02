@@ -13,6 +13,7 @@ import project.service.BoardService;
 import project.service.BoardServiceImpl;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,8 +23,8 @@ public class BoardController extends HttpServlet {
 
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		BoardService bSvc = new BoardServiceImpl();
-		String title = null, content = null, sessUid = null;
-		int bid = 0;
+		String title = null, content = null, sessUid = null, field = null, query = null, uid = null;
+		int bid = 0, page = 0;
 		Board board = null;
 		HttpSession session = request.getSession();
 		String requestUri = request.getRequestURI();
@@ -31,19 +32,21 @@ public class BoardController extends HttpServlet {
 		String action = uri[uri.length-1];
 		String method = request.getMethod();
 		RequestDispatcher rd = null;
+		request.setCharacterEncoding("utf-8");
+		response.setContentType("text/html; charset=utf-8");
 		
 		switch(action) {
 			case "list":		// /jw/bbs/board/list?p=1&f=title&q=검색
 				String page_ = request.getParameter("p");
-				String field = request.getParameter("f");
-				String query = request.getParameter("q");
-				int page = (page_ == null || page_.isEmpty()) ? 1 : Integer.parseInt(page_);
+				field = request.getParameter("f");
+				query = request.getParameter("q");
+				page = (page_ == null || page_.isEmpty()) ? 1 : Integer.parseInt(page_);
 				field = (field == null || field.isEmpty()) ? "title" : field;
 				query = (query == null || query.isEmpty()) ? "" : query;
 				List<Board> bList = bSvc.getBoardList(page, field, query);
 				
 				// for pagination
-				int totalBoards = bSvc.getBoardCount();
+				int totalBoards = bSvc.getBoardCount(field, query);
 				int totalPages = (int) Math.ceil(totalBoards * 1.0 / bSvc.COUNT_PER_PAGE);
 				List<String> pageList = new ArrayList<String>();
 				for (int i = 1; i <= totalPages; i++) {
@@ -51,8 +54,8 @@ public class BoardController extends HttpServlet {
 				}
 
 				session.setAttribute("currentBoardPage", page);
-				request.setAttribute("field", field);
-				request.setAttribute("query", query);
+				session.setAttribute("field", field);
+				session.setAttribute("query", query);
 				request.setAttribute("bList", bList);
 				request.setAttribute("pageList",pageList);
 				
@@ -80,12 +83,32 @@ public class BoardController extends HttpServlet {
 				break;
 				
 			case "update":
-				
+				if(method.equals("GET")) {
+					bid = Integer.parseInt(request.getParameter("bid"));
+					board = bSvc.getBoard(bid);
+					request.setAttribute("board", board);
+					
+					rd = request.getRequestDispatcher("/WEB-INF/view/board/update.jsp");
+					rd.forward(request, response);
+				} else {
+					bid = Integer.parseInt(request.getParameter("bid"));
+					uid = request.getParameter("uid");
+					title = request.getParameter("title");
+					content = request.getParameter("content");
+					board = new Board(bid, title, content);
+					bSvc.updateBoard(board);
+					
+					response.sendRedirect("/jw/bbs/board/detail?bid=" + bid + "&uid=" + uid);
+				}
 				break;
 				
 			case "detail":
+				uid = request.getParameter("uid");
+				sessUid = (String) session.getAttribute("sessUid");
 				bid = Integer.parseInt(request.getParameter("bid"));
-				bSvc.increaseViewCount(bid);
+				if(!uid.equals(sessUid)) {
+					bSvc.increaseViewCount(bid);
+				}
 				board = bSvc.getBoard(bid);
 				List<Reply> replyList = null;
 
@@ -97,7 +120,13 @@ public class BoardController extends HttpServlet {
 				break;
 				
 			case "delete":
-				
+				bid = Integer.parseInt(request.getParameter("bid")); 
+				bSvc.deleteBoard(bid);
+				page = (Integer) session.getAttribute("currentBoardPage");
+				field = (String) session.getAttribute("field");
+				String query_ = (String) session.getAttribute("query");
+				query = URLEncoder.encode(query_, "utf-8") ;
+ 				response.sendRedirect("/jw/bbs/board/list?p=" + page + "&f=" + field + "&q=" + query);
 				break;
 		}
 	}

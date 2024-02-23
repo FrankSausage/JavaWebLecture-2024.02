@@ -11,7 +11,7 @@ public interface BoardService {
 	
 	Board getBoard(int bid);
 	
-	int getBoardCount();
+	int getBoardCount(String field, String query);
 	
 	void insertBoard(Board board);
 	

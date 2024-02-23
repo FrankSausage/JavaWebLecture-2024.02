@@ -8,8 +8,13 @@
 	<%@ include file="../common/_head.jspf" %>
 	<style>
 		td, th { text-align: center; }
-		.disabled-link { pointer-events: none; }
 	</style>
+	<script>
+		function deleteFunc(bid) {
+			$('#deleteBid').val(bid);
+			$('#deleteModal').modal('show');
+		}
+	</script>
 </head>
 	<body>
 		<%@ include file="../common/_top.jspf" %>
@@ -23,13 +28,21 @@
 					<h3><strong class="me-5">게시글 조회</strong></h3>
 						<c:if test="${sessUid eq board.uid}">
 							<span style="font-size:16px">
-								<a href="/jw/bbs/board/update?bid=${board.bid}"><i class="fa-solid fa-file-pen"></i> 수정</a>
-								<a href="/jw/bbs/board/delete?bid=${board.bid}"><i class="fa-solid fa-trash"></i> 삭제</a>
+								<a href="/jw/bbs/board/list?p=1"><i class="fa-solid fa-list"></i> 목록</a>
+								<a href="/jw/bbs/board/update?bid=${board.bid}"><i class="fa-solid fa-file-pen ms-3"></i> 수정</a>
+								<a href="javascript:deleteFunc('${board.bid}')"><i class="fa-solid fa-trash ms-3"></i> 삭제</a>
 							</span>
 						</c:if>
-						<c:if test="${sessUid ne board.uid}">
+						<c:if test="${sessUid eq 'admin'}">
 							<span style="font-size:16px">
-								<a href="#" class="disabled-link"><i class="fa-solid fa-file-pen"></i> 수정</a>
+								<a href="/jw/bbs/board/list?p=1"><i class="fa-solid fa-list"></i> 목록</a>
+								<a href="javascript:deleteFunc('${board.bid}')"><i class="fa-solid fa-trash ms-3"></i> 삭제</a>
+							</span>
+						</c:if>
+						<c:if test="${sessUid ne board.uid and sessUid ne 'admin'}">
+							<span style="font-size:16px">
+								<a href="/jw/bbs/board/list?p=1"><i class="fa-solid fa-list"></i> 목록</a>
+								<a href="#" class="disabled-link"><i class="fa-solid fa-file-pen ms-3"></i> 수정</a>
 								<a href="#" class="disabled-link"><i class="fa-solid fa-trash ms-3"></i> 삭제</a>
 							</span>
 						</c:if>
@@ -54,5 +67,27 @@
 		</div>
 		
 		<%@ include file="../common/_bottom.jspf" %>
+		<div class="modal" id="deleteModal">
+			 <div class="modal-dialog">
+	    		<div class="modal-content">
+			      <!-- Modal Header -->
+			      <div class="modal-header">
+			        <h4 class="modal-title">게시글 삭제</h4>
+			        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+			      </div>
+			      
+			      <!-- Modal body -->
+			      <div class="modal-body">
+			        <strong style="text-align: center">정말로 삭제하시겠습니까?</strong>
+			        <div class="text-center mt-5">
+			        	<form action="/jw/bbs/board/delete" method="post">
+			        		<input type="hidden" id="deleteBid" name="bid">
+				        	<button class="btn btn-danger" type="submit">확인</button>
+				        </form>
+			        </div>
+			      </div>
+    			</div>
+  			</div>
+		</div>
 	</body>
 </html>

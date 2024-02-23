@@ -17,24 +17,20 @@ public class Board {
 
 	// 게시글 생성
 	public Board(String title, String content, String uid) {
-		super();
 		this.title = title;
 		this.content = content;
 		this.uid = uid;
 	}
 	
 	// 게시글 수정
-	public Board(int bid, String title, String content, String uid) {
-		super();
+	public Board(int bid, String title, String content) {
 		this.bid = bid;
 		this.title = title;
 		this.content = content;
-		this.uid = uid;
 	}
 	
 	// 게시글 목록 조회
 	public Board(int bid, String title, LocalDateTime modTime, int viewCount, int replyCount, String uname) {
-		super();
 		this.bid = bid;
 		this.title = title;
 		this.modTime = modTime;
@@ -45,7 +41,6 @@ public class Board {
 
 	public Board(int bid, String title, String content, String uid, LocalDateTime modTime, int isDeleted, int viewCount,
 			int replyCount) {
-		super();
 		this.bid = bid;
 		this.title = title;
 		this.content = content;
