@@ -278,4 +278,14 @@
     <servlet-name>BoardController</servlet-name>
     <url-pattern>/BoardController</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>memberController</display-name>
+    <servlet-name>memberController</servlet-name>
+    <servlet-class>exam.memberController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>memberController</servlet-name>
+    <url-pattern>/memberController</url-pattern>
+  </servlet-mapping>
 </web-app>
